@@ -1,0 +1,16 @@
+title: Dialog box created by osascript
+id: 2D454324-7720-4C68-976C-0C0B9A787795
+status: experimental
+description: Detects usage of the osascript to display a dialog box. Uses the fact that MacOS automatically saves the window location to a plist
+tags:
+  - apfell
+logsource:
+  category: file_event
+  product: macos
+detection:
+  selection:
+    TargetFilename|endswith: '/Library/Saved Application State/com.apple.osascript.savedState/windows.plist'
+  condition: selection
+falsepositives:
+  - Legitimate processes using osascript to pop a dialog box
+level: high

@@ -1,0 +1,17 @@
+title: osascript writeToFileAtomically usage
+id: 71C38627-AEA5-4123-8756-2C252A9DECA8
+status: experimental
+description: Detects usage of the osascript writeToFileAtomically function to write files. Used by Apfell for persisting payloads but is also used by a lot of legitimate applications
+tags:
+  - apfell
+logsource:
+  category: file_event
+  product: macos
+detection:
+  selection:
+    Image: '/usr/bin/osascript'
+    TargetFilename|contains: '.dat.nosync'
+  condition: selection
+falsepositives:
+  - Legitimate processes using the osascript writeToFileAtomically function
+level: low # this is a really noisy rule at the moment
