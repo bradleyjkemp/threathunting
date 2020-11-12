@@ -7,5 +7,7 @@ jobs:
     name: sigmafmt
     runs-on: ubuntu-latest
     steps:
+      - name: Check out rules
+        uses: actions/checkout@v2
       - name: sigmafmt
         uses: bradleyjkemp/sigmafmt/github-action@github-action
