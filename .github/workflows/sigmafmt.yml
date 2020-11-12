@@ -1,6 +1,11 @@
 name: sigmafmt
 
-on: [workflow_dispatch, push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 
 jobs:
   build:
