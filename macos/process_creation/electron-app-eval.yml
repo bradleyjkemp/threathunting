@@ -1,0 +1,25 @@
+title: Electron app launched with the --eval flag
+id: D975164C-291F-4E1A-8339-6E486406E6B5
+description: Detects Electron apps being launched with the `--eval` CLI flag which suggests they're being abused to run arbitrary JS code and bypass application allowlisting defences.
+logsource:
+    category: process_creation
+    product: macos
+detection:
+    electronApp:
+        Image:
+            # TODO: there's a lot of Electron apps out there. Unlikely we can list all of them...
+            # Better would be to detect the ELECTRON_RUN_AS_NODE environment variable
+            - '/Applications/Keybase.app/Contents/MacOS/Keybase'
+            - '/Applications/Slack.app/Contents/MacOS/Slack'
+            - '/Applications/Docker.app/Contents/MacOS/Docker Desktop.app/Contents/MacOS/Docker Desktop'
+    evalFlag:
+        CommandLine|contains:
+            - '-e '
+            - '-e='
+            - '--eval '
+            - '--eval='
+    condition: electronApp and evalFlag
+references:
+    - https://blog.xpnsec.com/macos-injection-via-third-party-frameworks/#electron-hijacking
+level: high
+status: experimental
