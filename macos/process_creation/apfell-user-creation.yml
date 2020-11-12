@@ -1,0 +1,23 @@
+title: Creation of user by Apfell MacOS implant
+id: 7B332FF6-CEC5-43BE-AD3A-8610E32A519E
+description: Detects creation of MacOS user by the Apfell (Mythic C2) implant.
+logsource:
+    category: process_creation
+    product: macos
+detection:
+    # Detects the fairly unique way Apfell populates the new user's home folder
+    # This only occurs if the "createprofile" option is selected
+    userTemplateCopy:
+        ProcessName: 'cp'
+        CommandLine|contains|all:
+            - '-R'
+            - '/System/Library/User Template/English.lproj/'
+    condition: userTemplateCopy
+references:
+    - https://github.com/its-a-feature/Mythic/blob/25382cdc7da07fd81ae4c332c8c914cfcee29bea/Payload_Types/apfell/agent_code/add_user.js
+tags:
+    - apfell
+level: medium
+status: experimental
+falsepositives:
+    - Other processes creating a new user

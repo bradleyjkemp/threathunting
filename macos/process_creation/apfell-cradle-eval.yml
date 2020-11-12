@@ -1,0 +1,19 @@
+title: Evaluation of Apfell MacOS implant
+id: 77B66C37-F10C-4C44-BE11-AB3C5E7D5F6C
+description: Detects evaluation of MacOS Apfell (Mythic C2) implant on the command line.
+logsource:
+    category: process_creation
+    product: macos
+detection:
+    selection:
+        CommandLine|contains|all:
+            - '$.NSData.dataWithContentsOfURL'
+            - '$.NSURL.URLWithString'
+            - 'eval'
+    condition: selection
+references:
+    - https://github.com/its-a-feature/Mythic/blob/72a2f3732733c1c335d541d6f7678fe21683e091/Payload_Types/apfell/agent_code/spawn_download_cradle.js#L8
+tags:
+    - apfell
+level: high
+status: experimental

@@ -1,0 +1,22 @@
+title: Execution of Apfell spawn_drop_and_execute task
+id: 07B8B336-A5A4-4D4D-BCC7-105DBCE07A70
+description: Detects the execution of a temporary JavaScript file by osascript. This file is written using witeDataAtomically so also triggers Sigma rule 71C38627-AEA5-4123-8756-2C252A9DECA8
+logsource:
+    category: process_creation
+    product: macos
+detection:
+    selection:
+        ProcessName: 'osascript'
+        CommandLine|contains|all:
+            - '-l'
+            - 'JavaScript'
+            - '/tmp/'
+    condition: selection
+references:
+    - https://github.com/its-a-feature/Mythic/blob/25382cdc7da07fd81ae4c332c8c914cfcee29bea/Payload_Types/apfell/agent_code/spawn_drop_and_execute.js
+tags:
+    - apfell
+level: high
+status: experimental
+falsepositives:
+    - Unknown
