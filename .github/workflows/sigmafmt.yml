@@ -1,0 +1,11 @@
+name: sigmafmt
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    name: sigmafmt
+    runs-on: ubuntu-latest
+    steps:
+      - name: sigmafmt
+        uses: bradleyjkemp/sigmafmt/github-action@github-action
