@@ -1,21 +1,21 @@
 title: Slack teams/workspaces reconnaissance
 id: E580EE9A-5359-49D4-BD62-EE68B991E055
 description: Detects when the Slack teams/workspaces files are accessed by non-Slack processes. This could be a sign of reconnaissance activity.
-references:
-  - https://posts.specterops.io/abusing-slack-for-offensive-operations-2343237b9282
 logsource:
-  category: file_event
-  product: macos
+    category: file_event
+    product: macos
 detection:
-  slackFilesAccessed:
-    TargetFilename|contains:
-      - '/Library/Application Support/Slack/storage/'
-  bySlackProcess:
-    Image:
-      - '/Applications/Slack.app/Contents/MacOS/Slack'
-      - '/Applications/Slack.app/Contents/Frameworks/Slack Helper.app/Contents/MacOS/Slack Helper'
-  condition: slackFilesAccessed and not bySlackProcess
+    slackFilesAccessed:
+        TargetFilename|contains:
+            - '/Library/Application Support/Slack/storage/'
+    bySlackProcess:
+        Image:
+            - '/Applications/Slack.app/Contents/MacOS/Slack'
+            - '/Applications/Slack.app/Contents/Frameworks/Slack Helper.app/Contents/MacOS/Slack Helper'
+    condition: slackFilesAccessed and not bySlackProcess
+references:
+    - https://posts.specterops.io/abusing-slack-for-offensive-operations-2343237b9282
 level: high
 status: experimental
 falsepositives:
-  - Anti-virus or other scanning tools that open all files
+    - Anti-virus or other scanning tools that open all files

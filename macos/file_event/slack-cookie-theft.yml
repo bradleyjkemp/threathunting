@@ -1,22 +1,22 @@
 title: Slack Cookie database accessed
 id: 3BF11EB3-1817-449F-9330-C9F7BD0C929D
 description: Detects when the Slack cookie database is accessed by a non-Slack process. This could be a sign of Slack credential theft.
-references:
-  - https://posts.specterops.io/abusing-slack-for-offensive-operations-2343237b9282
 logsource:
-  category: file_event
-  product: macos
+    category: file_event
+    product: macos
 detection:
-  slackCookiesAccessed:
-    TargetFilename|endswith:
-      - '/Library/Application Support/Slack/Cookies'
-      - '/Library/Application Support/Slack/Cookies-journal'
-  bySlackProcess:
-    Image:
-      - '/Applications/Slack.app/Contents/MacOS/Slack'
-      - '/Applications/Slack.app/Contents/Frameworks/Slack Helper.app/Contents/MacOS/Slack Helper'
-  condition: slackCookiesAccessed and not bySlackProcess
+    slackCookiesAccessed:
+        TargetFilename|endswith:
+            - '/Library/Application Support/Slack/Cookies'
+            - '/Library/Application Support/Slack/Cookies-journal'
+    bySlackProcess:
+        Image:
+            - '/Applications/Slack.app/Contents/MacOS/Slack'
+            - '/Applications/Slack.app/Contents/Frameworks/Slack Helper.app/Contents/MacOS/Slack Helper'
+    condition: slackCookiesAccessed and not bySlackProcess
+references:
+    - https://posts.specterops.io/abusing-slack-for-offensive-operations-2343237b9282
 level: high
 status: experimental
 falsepositives:
-  - Anti-virus or other scanning tools that open all files
+    - Anti-virus or other scanning tools that open all files

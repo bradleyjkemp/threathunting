@@ -15,4 +15,6 @@ jobs:
       - name: Check out rules
         uses: actions/checkout@v2
       - name: sigmafmt
-        uses: bradleyjkemp/sigmafmt/github-action@v0.1.1
+        uses: bradleyjkemp/sigmafmt/github-action@v0.1.2
+        with:
+          path: 'macos'
