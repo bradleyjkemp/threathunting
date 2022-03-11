@@ -1,6 +1,10 @@
 title: Temporary keychain created
-id: 9087BBF0-EE66-454E-BBB4-B272E2EC8EFF
 description: Detects creation of a temporary keychain. This artifact is created during Apfell implant startup as part of its session key generation
+level: high
+status: experimental
+falsepositives:
+    - (unknown) Legitimate processes using temporary keychains
+
 logsource:
     category: file_event
     product: macos
@@ -17,10 +21,7 @@ detection:
             - '/usr/libexec/trustd'
             # magic whitespace preserving comment
     condition: selection and not falsePositive
+
+id: 9087BBF0-EE66-454E-BBB4-B272E2EC8EFF
 tags:
     - apfell
-level: high
-status: experimental
-
-falsepositives:
-    - (unknown) Legitimate processes using temporary keychains

@@ -1,6 +1,10 @@
 title: Electron app launched with the --eval flag
-id: D975164C-291F-4E1A-8339-6E486406E6B5
 description: Detects Electron apps being launched with the `--eval` CLI flag which suggests they're being abused to run arbitrary JS code and bypass application allowlisting defences.
+level: high
+status: experimental
+references:
+    - https://blog.xpnsec.com/macos-injection-via-third-party-frameworks/#electron-hijacking
+
 logsource:
     category: process_creation
     product: macos
@@ -19,7 +23,5 @@ detection:
             - '--eval '
             - '--eval='
     condition: electronApp and evalFlag
-references:
-    - https://blog.xpnsec.com/macos-injection-via-third-party-frameworks/#electron-hijacking
-level: high
-status: experimental
+
+id: D975164C-291F-4E1A-8339-6E486406E6B5
