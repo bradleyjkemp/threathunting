@@ -2,7 +2,6 @@ title: Temporary keychain created
 description: Detects creation of a temporary keychain. This artifact is created during Apfell implant startup as part of its session key generation
 level: high
 status: experimental
-
 falsepositives:
     - (unknown) Legitimate processes using temporary keychains
 
